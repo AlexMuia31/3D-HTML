@@ -1,5 +1,5 @@
 import { Html, useGLTF } from "@react-three/drei";
-
+import { useState } from "react";
 const sceneItems = [
   {
     model: "Japanese Door.glb",
@@ -62,12 +62,13 @@ export const Experience = () => {
 
 const Item = ({ model, position, rotation, labelOffset, ...props }) => {
   const gltf = useGLTF(`models/${model}`);
+  const [hidden, setHidden] = useState(false);
 
   return (
     <group position={position} rotation={rotation}>
       <primitive object={gltf.scene} {...props} />
-      <Html occlude position={labelOffset}>
-        <div className="label">
+      <Html occlude onOcclude={setHidden} position={labelOffset}>
+        <div className={`label noselect ${hidden ? "label--hidden" : ""}`}>
           <div className="label_price">${props.price}</div>
           <div className="label_name">{props.name}</div>
         </div>
