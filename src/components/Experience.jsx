@@ -67,7 +67,13 @@ const Item = ({ model, position, rotation, labelOffset, ...props }) => {
   return (
     <group position={position} rotation={rotation}>
       <primitive object={gltf.scene} {...props} />
-      <Html occlude onOcclude={setHidden} position={labelOffset}>
+      <Html
+        transform
+        occlude
+        onOcclude={setHidden}
+        position={labelOffset}
+        scale={0.42}
+      >
         <div className={`label noselect ${hidden ? "label--hidden" : ""}`}>
           <div className="label_price">${props.price}</div>
           <div className="label_name">{props.name}</div>
